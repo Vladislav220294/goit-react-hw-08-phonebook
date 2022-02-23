@@ -1,31 +1,25 @@
-import { useDispatch, useSelector } from 'react-redux';
+import Navigation from './utils/Navigation';
 import './App.css';
-import ContactForm from './components/ContactForm/ContactForm';
-import ContactList from './components/ContactList/ContactList';
-import Filter from './components/Filter/Filter';
-import { getContacts } from './redux/operations';
-import { useEffect } from 'react';
+import RegisterView from './views/RegisterView/RegisterView';
+import LoginView from './views/LoginView/LoginView';
+import ContactsView from './views/ContactsView/ContactsView';
+import { Route, Switch } from 'react-router-dom';
 
 const App = () => {
-  const error = useSelector(state => state.contacts.error);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getContacts());
-  }, [dispatch]);
   return (
     <div className="App">
-      {error ? (
-        <h1>Some issue has occured. Try again later</h1>
-      ) : (
-        <>
-          {' '}
-          <h1>Phonebook</h1>
-          <ContactForm />
-          <h2>Contacts</h2>
-          <Filter />
-          <ContactList />
-        </>
-      )}
+      <Navigation />
+      <Switch>
+        <Route path="/login">
+          <LoginView />
+        </Route>
+        <Route path="/register">
+          <RegisterView />
+        </Route>
+        <Route path="/contacts">
+          <ContactsView />
+        </Route>
+      </Switch>
     </div>
   );
 };
