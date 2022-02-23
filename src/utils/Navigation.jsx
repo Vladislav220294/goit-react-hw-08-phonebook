@@ -1,20 +1,26 @@
+import UserMenu from "../components/UserMenu";
 import { NavLink } from "react-router-dom";
 import s from './Navigation.module.css';
+import { useSelector } from "react-redux";
+import { getIsLoggedin } from "../redux/auth/authSelector";
 
 const Navigation = () => {
-    return ( <>
-      
+  const isLoggedin = useSelector(getIsLoggedin)
+    return (<> <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+      <NavLink to="/contacts" className={s.link} activeClassName={s.activeLink}>
+        Contacts
+      </NavLink>
+      {isLoggedin? <UserMenu/> : <div>
       <NavLink to="/login" className={s.link} activeClassName={s.activeLink}>
         Login
       </NavLink>
       <NavLink exact to="/register" className={s.link} activeClassName={s.activeLink}>
         Registration
-      </NavLink>
-        <NavLink to="/contacts" className={s.link} activeClassName={s.activeLink}>
-        Contacts
-      </NavLink>
-      <hr />
-    </> );
+      </NavLink></div>}
+        
+      
+      
+    </div> <hr /></>);
 }
  
 export default Navigation;
